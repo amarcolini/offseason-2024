@@ -22,6 +22,10 @@ buildscript {
     }
 }
 
+plugins {
+    id("com.google.devtools.ksp") version "1.9.24-1.0.20"
+}
+
 repositories {
     maven { url = 'https://jitpack.io' }
     maven { url = 'https://maven.brott.dev/' }
@@ -34,9 +38,13 @@ repositories {
 apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
 apply plugin: 'org.team11260.fast-load-plugin'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace = 'org.firstinspires.ftc.teamcode'
+    kotlinOptions {
+        jvmTarget = '16'
+    }
 
     packagingOptions {
         jniLibs.useLegacyPackaging true
@@ -48,7 +56,7 @@ dependencies {
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 
     implementation "com.github.amarcolini.joos:command:master-SNAPSHOT"
-    annotationProcessor "com.github.amarcolini.joos:annotation:master-SNAPSHOT"
+    ksp "com.github.amarcolini.joos:annotation:master-SNAPSHOT"
 
     implementation 'org.team11260:fast-load:0.1.2'
 }

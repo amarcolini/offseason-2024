@@ -7,15 +7,19 @@ import com.amarcolini.joos.geometry.Angle;
 import com.amarcolini.joos.hardware.CRServo;
 import com.amarcolini.joos.hardware.Motor;
 import com.amarcolini.joos.localization.AngleSensor;
+import com.amarcolini.joos.util.NanoClock;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.jetbrains.annotations.NotNull;
 
 @JoosConfig
 public class SampleSwerveModule extends PIDSwerveModule {
-    public static final PIDCoefficients coeffs = new PIDCoefficients(0.65);
+    public static final PIDCoefficients coeffs = new PIDCoefficients(0.4, 0.0, 0.001);
     public final AngleSensor moduleOrientationSensor;
     public final Motor motor;
     public final CRServo servo;
+    private NanoClock clock = NanoClock.getSystem();
+    private double lastServo = Double.NEGATIVE_INFINITY;
+    private double lastMotor = Double.NEGATIVE_INFINITY;
 
     public SampleSwerveModule(
             AngleSensor moduleOrientationSensor,
@@ -30,7 +34,7 @@ public class SampleSwerveModule extends PIDSwerveModule {
 
     @Override
     protected void setCorrectedDrivePower(double v) {
-        motor.internal.setPower(v);
+        motor.setPower(v);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.tuning;
 
 import com.amarcolini.joos.command.CommandOpMode;
+import com.amarcolini.joos.command.TimeCommand;
 import com.amarcolini.joos.geometry.Angle;
 import com.amarcolini.joos.geometry.Pose2d;
 import com.amarcolini.joos.geometry.Vector2d;
@@ -16,7 +17,7 @@ public class LocalizationTest extends CommandOpMode {
     public void preInit() {
         robot.drive.setPoseEstimate(new Pose2d());
 
-        schedule(true, () -> {
+        new TimeCommand((t, dt) -> {
             Vector2d leftStick = gamepad().p1.getLeftStick();
             Vector2d rightStick = gamepad().p1.getRightStick();
             robot.drive.setDrivePower(
@@ -28,6 +29,7 @@ public class LocalizationTest extends CommandOpMode {
             );
 
             telem.drawRobot(robot.drive.getPoseEstimate(), "blue");
-        });
+            return false;
+        }).schedule();
     }
 }

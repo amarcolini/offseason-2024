@@ -30,6 +30,7 @@ public class MotorDirectionDebugger extends CommandOpMode {
                 (p1) -> p1.y0.isActive()
         );
 
+        unregister(robot.drive);
         schedule(true, () -> {
             for (int i = 0; i < robot.drive.motorGroup.size(); i++) {
                 double power = buttonMap.get(i).apply(gamepad().p1) ? 1.0 : 0.0;

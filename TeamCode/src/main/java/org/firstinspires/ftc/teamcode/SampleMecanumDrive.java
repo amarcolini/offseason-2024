@@ -17,7 +17,7 @@ import com.amarcolini.joos.trajectory.constraints.MecanumConstraints;
 import com.amarcolini.joos.trajectory.constraints.TrajectoryConstraints;
 import org.jetbrains.annotations.NotNull;
 
-@JoosConfig
+
 public class SampleMecanumDrive extends MecanumDrive implements DriveTrajectoryFollower {
     public static double trackWidth = 18.0;
     public static double lateralMultiplier = 1.0;
