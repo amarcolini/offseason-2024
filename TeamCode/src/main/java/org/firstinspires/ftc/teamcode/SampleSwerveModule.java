@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.jetbrains.annotations.NotNull;
 
 @JoosConfig
-public class SampleSwerveModule extends PIDSwerveModule {
+public class SampleSwerveModule extends PIDSwerveModule2 {
     public static final PIDCoefficients coeffs = new PIDCoefficients(0.4, 0.0, 0.001);
     public final AngleSensor moduleOrientationSensor;
     public final Motor motor;
@@ -31,6 +31,8 @@ public class SampleSwerveModule extends PIDSwerveModule {
         this.motor = motor;
         this.servo = servo;
     }
+
+
 
     @Override
     protected void setCorrectedDrivePower(double v) {

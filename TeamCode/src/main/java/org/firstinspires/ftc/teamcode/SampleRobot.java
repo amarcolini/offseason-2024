@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.amarcolini.joos.command.Command;
 import com.amarcolini.joos.command.Component;
 import com.amarcolini.joos.command.Robot;
 import com.amarcolini.joos.dashboard.JoosConfig;
@@ -71,11 +72,16 @@ public class SampleRobot extends Robot {
 
     public final Outtake outtake = new Outtake(
             new Servo(hMap, "arm"),
-            new Servo(hMap, "wrist")
+            new Servo(hMap, "wrist"),
+            new Servo(hMap, "latch")
     );
 
     public final Slides slides = new Slides(
-            new Motor(hMap, "lift", Motor.Type.GOBILDA_435)
+            new Motor(hMap, "lift", Motor.Type.GOBILDA_1620)
+    );
+
+    public final Intake intake = new Intake(
+            new Motor(hMap, "intake", Motor.Type.GOBILDA_435)
     );
 
     private double lastUpdate;
@@ -98,5 +104,19 @@ public class SampleRobot extends Robot {
         }));
 
         drive.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public Command transfer() {
+        return Command.select(new Component[]{intake, slides, outtake}, () -> {
+            Command command;
+            if (slides.getPosition() < 20.0) {
+                if (outtake.getState() != Outtake.State.TRANSFER)
+                    command = outtake.transfer().and(() -> intake.setState(Intake.State.STOPPED));
+                else command = outtake.rest().and(() -> intake.setState(Intake.State.STOPPED));
+            } else
+                command = slides.goToPosition(0.0).and(outtake.rest()).then(outtake.transfer().and(() -> intake.setState(Intake.State.STOPPED)));
+            command.setInterruptable(false);
+            return command;
+        });
     }
 }

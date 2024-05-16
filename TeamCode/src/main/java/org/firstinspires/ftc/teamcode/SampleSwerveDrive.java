@@ -50,7 +50,7 @@ public class SampleSwerveDrive extends AbstractSwerveDrive implements DriveTraje
 
     @Override
     public void update() {
-        for (PIDSwerveModule module : modules) {
+        for (PIDSwerveModule2 module : modules) {
             module.update();
         }
     }
@@ -59,7 +59,6 @@ public class SampleSwerveDrive extends AbstractSwerveDrive implements DriveTraje
     public void setRunMode(@NotNull Motor.RunMode runMode) {
         motorGroup.setRunMode(runMode);
     }
-
     @Override
     public void setDrivePower(@NonNull Pose2d drivePower) {
         if (Math.abs(drivePower.heading.value) > 0.1 || drivePower.vec().norm() > 0.1) super.setDrivePower(drivePower);

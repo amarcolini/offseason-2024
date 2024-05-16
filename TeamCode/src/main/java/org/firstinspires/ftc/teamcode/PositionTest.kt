@@ -13,6 +13,7 @@ class PositionTest : CommandOpMode() {
         var armPosition = 0.5
         var wristPosition = 0.0
         var slidePosition = 0.0
+        var latchPosition = 0.5
     }
 
     override fun preInit() {
@@ -20,11 +21,12 @@ class PositionTest : CommandOpMode() {
     }
 
     override fun preStart() {
-        robot.slides.motor.resetEncoder()
+        robot.slides.resetEncoder()
         schedule(true) {
             robot.slides.setTarget(slidePosition)
             robot.outtake.arm.position = armPosition
             robot.outtake.wrist.position = wristPosition
+            robot.outtake.latch.position = latchPosition
         }
     }
 }
