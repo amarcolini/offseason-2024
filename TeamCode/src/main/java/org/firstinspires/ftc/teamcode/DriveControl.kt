@@ -16,7 +16,8 @@ import kotlin.math.pow
  *  - Dpad left to reverse intake
  *  - Y to toggle transfer positions (works anywhere)
  *  - X to toggle arm rest/out
- *  - B to release switch
+ *  - B to toggle latch
+ *  - Triggers to raise/lower slides
  */
 @TeleOp
 @JoosConfig
